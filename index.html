@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Spendomate - Your Budget Buddy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      scroll-behavior: smooth;
+      background: #f5f7fa;
+      color: #333;
+      animation: fadeInBody 1.5s ease-in;
+    }
+
+    @keyframes fadeInBody {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    nav {
+      background: #6c5ce7;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      transition: background 0.3s ease;
+    }
+
+    nav .logo-container {
+      display: flex;
+      align-items: center;
+    }
+
+    nav img.logo {
+      height: 40px;
+      margin-right: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    nav img.logo:hover {
+      transform: rotate(5deg) scale(1.1);
+    }
+
+    nav a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0;
+      height: 2px;
+      background: white;
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    header {
+      padding: 80px 20px;
+      text-align: center;
+      background: linear-gradient(to right, #6c5ce7, #a29bfe);
+      color: white;
+      animation: slideDown 1s ease-in-out;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    header button {
+      background: white;
+      color: #6c5ce7;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    header button:hover {
+      background-color: #f0f0f0;
+      transform: scale(1.05);
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+      animation: fadeInUp 1s ease-in-out;
+    }
+
+    @keyframes fadeInUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin: 20px 0;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+
+    iframe {
+      width: 100%;
+      height: 700px;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .faq details {
+      margin-bottom: 15px;
+      transition: all 0.3s ease;
+    }
+
+    footer {
+      background: #eee;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: #888;
+      transition: background 0.3s ease;
+    }
+
+    .dark-mode {
+      background: #1e1e1e;
+      color: #f1f1f1;
+    }
+
+    .dark-mode nav {
+      background: #2e2e2e;
+    }
+
+    .dark-mode header {
+      background: #333;
+    }
+
+    .dark-mode .card {
+      background: #2c2c2c;
+      color: white;
+    }
+
+    .dark-mode footer {
+      background: #222;
+      color: #aaa;
+    }
+
+    .toggle-btn {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      background: #6c5ce7;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s ease;
+    }
+
+    .toggle-btn:hover {
+      background: #5e54d6;
+      transform: scale(1.1);
+    }
+
+    a.download-btn {
+      text-decoration: none;
+      background-color: #6c5ce7;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      display: inline-block;
+      transition: background 0.3s, transform 0.3s ease;
+    }
+
+    a.download-btn:hover {
+      background-color: #5e54d6;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation with logo -->
+<nav>
+  <div class="logo-container">
+    <img src="logo.png" alt="Spendomate Logo" class="logo">
+    <div style="font-size: 20px; font-weight: 600;">Spendomate</div>
+  </div>
+  <div>
+    <a href="#how">Guide</a>
+    <a href="#userguide">User Guide</a>
+    <a href="#feedback">Feedback</a>
+    <a href="#contact">Mail Us</a>
+    <a href="#faq">FAQ</a>
+  </div>
+</nav>
+
+<header>
+  <h1>Welcome to Spendomate</h1>
+  <p>Your secure, smart expense manager</p>
+  <button onclick="window.location.href='#how'">Get Started</button>
+</header>
+
+<section id="how">
+  <h2>📘 How to Use Spendomate</h2>
+  <div class="card">1. Set a 4-digit secure PIN or use your fingerprint to log in.</div>
+  <div class="card">2. Add your income and record all expenses with categories.</div>
+  <div class="card">3. View detailed reports and analyze your spending.</div>
+  <div class="card">4. Use the reset option if you forget your PIN. All local data will be cleared.</div>
+</section>
+
+<section id="userguide">
+  <h2>📄 User Guide (PDF)</h2>
+  <div class="card">
+    <p>You can view or download the full user guide below:</p>
+    <iframe src="SPENDOMATE USER GUIDE.pdf">Your browser does not support embedded PDFs.</iframe>
+    <p style="margin-top: 10px;">
+      <a href="user_guide.pdf" download class="download-btn">⬇️ Download PDF</a>
+    </p>
+  </div>
+</section>
+
+<section id="feedback">
+  <h2>💬 Share Your Feedback</h2>
+  <p>Let us know what you think!</p>
+  <iframe src="https://forms.gle/8DBPuFUd29yoA9dSA">Loading…</iframe>
+</section>
+
+<section id="contact">
+  <h2>📧 Mail Us</h2>
+  <div class="card">
+    <p>Email: <a href="mailto:spendomateonline@gmail.com">spendomateonline@gmail.com</a></p>
+  </div>
+</section>
+
+<section id="faq" class="faq">
+  <h2>❓ FAQ</h2>
+  <details>
+    <summary>What if I forget my PIN?</summary>
+    <p>Use the reset option on the login screen. All data will be cleared.</p>
+  </details>
+  <details>
+    <summary>Is my data safe?</summary>
+    <p>Yes! Your data is stored locally on your device and protected with encryption.</p>
+  </details>
+  <details>
+    <summary>Can I use biometric login?</summary>
+    <p>Yes, if your device supports fingerprint or face unlock.</p>
+  </details>
+</section>
+
+<footer>
+  &copy; 2025 Spendomate. All rights reserved.
+</footer>
+
+<!-- Dark mode toggle -->
+<button class="toggle-btn" onclick="toggleDarkMode()">🌓</button>
+
+<script>
+  function toggleDarkMode() {
+    document.body.classList.toggle("dark-mode");
+  }
+</script>
+
+</body>
+</html>
