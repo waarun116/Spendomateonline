@@ -4,28 +4,59 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Spendomate - Your Budget Buddy</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
+    /* Enhanced base styles */
+    :root {
+      --primary-color: #6c5ce7;
+      --primary-dark: #5e54d6;
+      --secondary-color: #a29bfe;
+      --text-color: #2d3436;
+      --text-color-light: #636e72;
+      --bg-color: #f5f7fa;
+      --card-bg: #ffffff;
+      --dark-bg: #1e1e1e;
+      --dark-card: #2c2c2c;
+      --dark-text: #f1f1f1;
+      --dark-text-light: #b2bec3;
+      --header-height: 80px;
+      --mobile-header-height: 60px;
+      --font-primary: 'Inter', sans-serif;
+      --font-secondary: 'Poppins', sans-serif;
+    }
+
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
     }
 
     body {
-      font-family: 'Poppins', sans-serif;
+      font-family: var(--font-primary);
       margin: 0;
-      scroll-behavior: smooth;
-      background: #f5f7fa;
-      color: #333;
-      animation: fadeInBody 1.5s ease-in;
+      background: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    @keyframes fadeInBody {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-secondary);
+      font-weight: 600;
+      letter-spacing: -0.02em;
     }
 
+    /* Responsive Navigation */
     nav {
-      background: #6c5ce7;
+      background: var(--primary-color);
       padding: 1rem 2rem;
       position: sticky;
       top: 0;
@@ -34,17 +65,32 @@
       justify-content: space-between;
       align-items: center;
       color: white;
-      transition: background 0.3s ease;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      height: var(--header-height);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: white;
     }
 
     nav .logo-container {
       display: flex;
       align-items: center;
+      gap: 1rem;
     }
 
     nav img.logo {
       height: 40px;
-      margin-right: 10px;
       transition: transform 0.3s ease;
     }
 
@@ -54,67 +100,453 @@
 
     nav a {
       color: white;
-      margin: 0 1rem;
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 500;
       position: relative;
-      transition: color 0.3s;
+      transition: all 0.3s;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
     }
 
-    nav a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -5px;
-      width: 0;
-      height: 2px;
-      background: white;
-      transition: width 0.3s;
+    nav a:hover {
+      background: rgba(255,255,255,0.1);
     }
 
-    nav a:hover::after {
-      width: 100%;
-    }
-
+    /* Responsive Header */
     header {
-      padding: 80px 20px;
+      padding: 100px 20px;
       text-align: center;
-      background: linear-gradient(to right, #6c5ce7, #a29bfe);
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
       color: white;
-      animation: slideDown 1s ease-in-out;
-    }
-
-    @keyframes slideDown {
-      from { transform: translateY(-30px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+      position: relative;
+      overflow: hidden;
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
     header h1 {
-      font-size: 2.5rem;
+      font-size: clamp(2rem, 5vw, 3.5rem);
       margin-bottom: 1rem;
+      line-height: 1.2;
     }
 
-    header button {
-      background: white;
-      color: #6c5ce7;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 30px;
-      font-weight: bold;
+    header p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      margin-bottom: 2rem;
+      max-width: 600px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn {
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* Responsive Sections */
+    section {
+      padding: clamp(3rem, 8vw, 6rem) 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    section h2 {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      margin-bottom: 2rem;
+      color: var(--primary-color);
+      text-align: center;
+    }
+
+    /* Responsive Card Grid */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 200px;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--primary-color);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    .card h3 {
+      font-size: clamp(1.2rem, 2vw, 1.5rem);
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .card h3 i {
+      font-size: 1.25rem;
+    }
+
+    .card p {
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
+      color: #666;
+      margin: 0;
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    /* Responsive FAQ */
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 clamp(10px, 3vw, 20px);
+    }
+
+    .faq-item {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--card-bg);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .faq-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .faq-question {
+      padding: clamp(1rem, 2vw, 1.5rem);
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
+      background: var(--primary-color);
+      color: white;
       cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 500;
+      transition: background 0.3s ease;
+      word-wrap: break-word;
+      min-height: 60px;
+    }
+
+    .faq-question span {
+      flex: 1;
+      margin-right: 1rem;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      hyphens: auto;
+    }
+
+    .faq-question:hover {
+      background: var(--primary-dark);
+    }
+
+    .faq-question i {
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+      margin-left: 1rem;
+    }
+
+    .faq-answer {
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
+      background: var(--card-bg);
+      color: var(--text-color);
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      line-height: 1.6;
+      opacity: 0;
+    }
+
+    .faq-answer.active {
+      max-height: none;
+      height: auto;
+      opacity: 1;
+      padding: 1.5rem;
+    }
+
+    .faq-answer-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+    }
+
+    .faq-answer p {
+      margin: 0;
+      padding: 0.5rem 0;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+    }
+
+    .faq-answer ul {
+      margin: 0.5rem 0;
+      padding-left: 1.5rem;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+    }
+
+    .faq-answer li {
+      margin-bottom: 0.5rem;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+    }
+
+    .dark-mode .faq-item {
+      background: var(--dark-card);
+    }
+
+    .dark-mode .faq-answer {
+      color: var(--dark-text);
+    }
+
+    /* Responsive Contact Form */
+    .contact-form {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 2rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.8rem;
+      font-weight: 500;
+      font-size: 1.1rem;
+      color: var(--primary-color);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #e1e1e1;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-family: var(--font-primary);
       transition: all 0.3s ease;
     }
 
-    header button:hover {
-      background-color: #f0f0f0;
-      transform: scale(1.05);
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
     }
 
-    section {
-      padding: 60px 20px;
-      max-width: 1000px;
-      margin: auto;
-      animation: fadeInUp 1s ease-in-out;
+    .form-group textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    /* Responsive Footer */
+    footer {
+      background: #2c2c2c;
+      color: white;
+      padding: clamp(2rem, 5vw, 3rem) 20px;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: clamp(1rem, 3vw, 2rem);
+      text-align: left;
+    }
+
+    .footer-section h3 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .footer-section p {
+      color: #aaa;
+      margin-bottom: 1rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      color: white;
+      font-size: 1.5rem;
+      transition: color 0.3s;
+    }
+
+    .social-links a:hover {
+      color: var(--primary-color);
+    }
+
+    /* Dark mode responsive adjustments */
+    .dark-mode {
+      --bg-color: var(--dark-bg);
+      --text-color: var(--dark-text);
+      --text-color-light: var(--dark-text-light);
+      --card-bg: var(--dark-card);
+    }
+
+    .dark-mode .card {
+      background: var(--dark-card);
+      color: var(--dark-text);
+    }
+
+    .dark-mode .form-group input,
+    .dark-mode .form-group textarea {
+      background: var(--dark-card);
+      color: var(--dark-text);
+      border-color: #444;
+    }
+
+    .dark-mode .form-group label {
+      color: var(--dark-text);
+    }
+
+    /* Mobile-specific styles */
+    @media (max-width: 768px) {
+      :root {
+        --header-height: var(--mobile-header-height);
+      }
+
+      nav {
+        padding: 0.5rem 1rem;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: var(--mobile-header-height);
+        left: 0;
+        right: 0;
+        background: var(--primary-color);
+        padding: 1rem;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      header {
+        padding: 60px 20px;
+        min-height: 50vh;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .card-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .faq-question {
+        min-height: auto;
+      }
+
+      .toggle-btn {
+        top: 15px;
+        right: 15px;
+        width: 35px;
+        height: 35px;
+      }
+    }
+
+    /* Tablet-specific styles */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      header {
+        min-height: 50vh;
+      }
+    }
+
+    /* Large screen optimizations */
+    @media (min-width: 1025px) {
+      .card-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* Animations */
+    @keyframes slideDown {
+      from { transform: translateY(-30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     @keyframes fadeInUp {
@@ -122,181 +554,1342 @@
       to { transform: translateY(0); opacity: 1; }
     }
 
-    .card {
-      background: white;
+    /* Scroll to Top Button */
+    .scroll-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--primary-color);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 99;
+    }
+
+    .scroll-top.visible {
+      opacity: 1;
+    }
+
+    .scroll-top:hover {
+      background: var(--primary-dark);
+      transform: translateY(-3px);
+    }
+
+    /* Add these styles to the existing style section */
+    .guide-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      background: rgba(108, 92, 231, 0.05);
       border-radius: 12px;
+      transition: transform 0.3s ease;
+    }
+
+    .step:hover {
+      transform: translateX(10px);
+    }
+
+    .step-number {
+      width: 40px;
+      height: 40px;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .step-content h3 {
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .step-content p {
+      color: #666;
+      margin: 0;
+    }
+
+    .dark-mode .step {
+      background: rgba(108, 92, 231, 0.1);
+    }
+
+    .dark-mode .step-content p {
+      color: #aaa;
+    }
+
+    @media (max-width: 768px) {
+      .step {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1rem;
+      }
+
+      .step-number {
+        margin-bottom: 0.5rem;
+      }
+    }
+
+    /* Add these styles to the existing style section */
+    .security-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: rgba(108, 92, 231, 0.1);
+      border-radius: 20px;
+      color: var(--primary-color);
+      font-weight: 500;
+      margin: 1rem 0;
+    }
+
+    .security-badge i {
+      font-size: 1.2rem;
+    }
+
+    .feature-highlight {
+      position: relative;
+      padding: 1.5rem;
+      background: rgba(108, 92, 231, 0.05);
+      border-radius: 12px;
+      margin: 1rem 0;
+    }
+
+    .feature-highlight::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 4px;
+      background: var(--primary-color);
+      border-radius: 4px;
+    }
+
+    .feature-highlight h4 {
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-highlight p {
+      margin: 0;
+      color: #666;
+    }
+
+    .dark-mode .feature-highlight {
+      background: rgba(108, 92, 231, 0.1);
+    }
+
+    .dark-mode .feature-highlight p {
+      color: #aaa;
+    }
+
+    /* Dark mode toggle button styles */
+    .toggle-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+
+    .toggle-btn:hover {
+      background: var(--primary-dark);
+      transform: scale(1.1);
+    }
+
+    .dark-mode .toggle-btn {
+      background: var(--dark-card);
+      color: var(--dark-text);
+    }
+
+    @media (max-width: 768px) {
+      .faq-container {
+        padding: 0 10px;
+        gap: 1rem;
+      }
+
+      .faq-question {
+        padding: 1rem;
+        font-size: 0.95rem;
+        min-height: auto;
+      }
+
+      .faq-answer.active {
+        padding: 1rem;
+      }
+
+      .faq-answer-content {
+        gap: 0.75rem;
+      }
+
+      .toggle-btn {
+        top: 15px;
+        right: 15px;
+        width: 35px;
+        height: 35px;
+      }
+    }
+
+    .download-section {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 80px 20px;
+    }
+
+    .download-container {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .download-description {
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+      opacity: 0.9;
+    }
+
+    .download-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .app-logo {
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+    }
+
+    .app-info {
+      text-align: left;
+      flex: 1;
+      margin: 0 20px;
+    }
+
+    .app-info h3 {
+      font-size: 1.5rem;
+      margin-bottom: 5px;
+    }
+
+    .app-info p {
+      opacity: 0.8;
+      margin-bottom: 5px;
+    }
+
+    .version {
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    .download-btn {
+      background: white;
+      color: var(--primary-color);
+      padding: 12px 24px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .download-instructions {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 2.5rem;
+      margin: 2rem auto;
+      max-width: min(800px, 90%);
+    }
+
+    .download-instructions h3 {
+      font-size: clamp(1.4rem, 3vw, 1.8rem);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: white;
+      text-align: center;
+    }
+
+    .download-instructions ol {
+      list-style: none;
+      counter-reset: item;
+      padding: 0;
+      margin: 0;
+    }
+
+    .download-instructions li {
+      counter-increment: item;
+      position: relative;
+      padding: 1.2rem 1.2rem 1.2rem 3.5rem;
+      margin-bottom: 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      font-size: clamp(1rem, 2vw, 1.1rem);
+      line-height: 1.6;
+      color: white;
+      transition: transform 0.3s ease;
+    }
+
+    .download-instructions li:hover {
+      transform: translateX(10px);
+    }
+
+    .download-instructions li::before {
+      content: counter(item);
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 2rem;
+      height: 2rem;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .security-info {
+      margin-top: 30px;
       padding: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      margin: 20px 0;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+
+    .security-info h4 {
+      color: white;
+      font-size: clamp(1.1rem, 2vw, 1.3rem);
+      margin-bottom: 15px;
+    }
+
+    .security-info ul {
+      color: white;
+      font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+      line-height: 1.6;
+    }
+
+    .security-info ul li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .security-info i {
+      margin-right: 10px;
+    }
+
+    .security-info p {
+      color: white;
+      font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+      margin-top: 15px;
+    }
+
+    @media (max-width: 768px) {
+      .download-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .app-info {
+        margin: 20px 0;
+      }
+
+      .download-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    /* Enhanced responsive styles */
+    @media (max-width: 768px) {
+      .card-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 15px;
+      }
+
+      .card {
+        margin: 0;
+      }
+
+      section {
+        padding: 40px 15px;
+      }
+
+      .download-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .app-info {
+        margin: 20px 0;
+      }
+
+      .download-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+    }
+
+    @media (min-width: 1025px) {
+      .card-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+      }
+    }
+
+    /* Enhanced card animations */
+    .card {
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .card:hover {
-      transform: scale(1.02);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
     }
 
-    iframe {
-      width: 100%;
-      height: 700px;
-      border: none;
-      border-radius: 10px;
+    /* Enhanced security info styles */
+    .security-info {
+      transition: transform 0.3s ease;
     }
 
-    .faq details {
-      margin-bottom: 15px;
+    .security-info:hover {
+      transform: translateY(-2px);
+    }
+
+    .security-info ul li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .security-info i {
+      margin-right: 10px;
+    }
+
+    /* Add these styles to your existing style section */
+    .response-card {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 3rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+      z-index: 1000;
+      max-width: 90%;
+      width: 500px;
+      animation: slideIn 0.3s ease;
+    }
+
+    .response-card i {
+      font-size: 4rem;
+      color: #4CAF50;
+      margin-bottom: 1.5rem;
+    }
+
+    .response-card h3 {
+      font-size: 1.8rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .response-card p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .response-card .btn {
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 999;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from { 
+        transform: translate(-50%, -60%); 
+        opacity: 0; 
+      }
+      to { 
+        transform: translate(-50%, -50%); 
+        opacity: 1; 
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .guide-steps {
+      margin-bottom: 2rem;
+    }
+
+    .step {
+      background: rgba(108, 92, 231, 0.05);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.3s ease;
+    }
+
+    .step:hover {
+      transform: translateX(10px);
+    }
+
+    .step-number {
+      width: 40px;
+      height: 40px;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .step-content h3 {
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .step-content p {
+      color: #666;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    .guide-download {
+      background: rgba(108, 92, 231, 0.05);
+      padding: 2rem;
+      border-radius: 12px;
+      margin-top: 2rem;
+    }
+
+    .guide-download p {
+      color: #666;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .step {
+        padding: 1rem;
+      }
+
+      .step-number {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+      }
+
+      .response-card {
+        width: 90%;
+        padding: 1.5rem;
+      }
+    }
+
+    /* Add these styles for better form interaction */
+    .contact-form .btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .contact-form .form-group input:invalid,
+    .contact-form .form-group textarea:invalid {
+      border-color: #f44336;
+    }
+
+    .contact-form .form-group input:focus:invalid,
+    .contact-form .form-group textarea:focus:invalid {
+      box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.1);
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .fa-spin {
+      animation: spin 1s linear infinite;
+    }
+
+    .overlay {
+      transition: opacity 0.3s ease;
+    }
+
+    .response-card {
       transition: all 0.3s ease;
     }
 
-    footer {
-      background: #eee;
+    #contact .btn {
+      background: var(--primary-color);
+      color: white;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    #contact .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+    }
+
+    /* Dark mode adjustments */
+    .dark-mode #contact .card {
+      background: var(--dark-card);
+    }
+
+    .dark-mode #contact p {
+      color: var(--dark-text);
+    }
+
+    .key-features {
+      background: var(--bg-color);
+      padding: 4rem 2rem;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 2rem;
       text-align: center;
-      padding: 20px;
-      font-size: 14px;
-      color: #888;
-      transition: background 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
-    .dark-mode {
-      background: #1e1e1e;
-      color: #f1f1f1;
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
     }
 
-    .dark-mode nav {
-      background: #2e2e2e;
+    .feature-icon {
+      width: 70px;
+      height: 70px;
+      background: var(--primary-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
     }
 
-    .dark-mode header {
-      background: #333;
-    }
-
-    .dark-mode .card {
-      background: #2c2c2c;
+    .feature-icon i {
+      font-size: 2rem;
       color: white;
     }
 
-    .dark-mode footer {
-      background: #222;
-      color: #aaa;
+    .feature-card h3 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
     }
 
-    .toggle-btn {
-      position: fixed;
-      right: 20px;
-      bottom: 20px;
-      background: #6c5ce7;
-      color: white;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: background 0.3s, transform 0.3s ease;
+    .feature-card p {
+      color: var(--text-color-light);
+      font-size: 1rem;
+      line-height: 1.6;
     }
 
-    .toggle-btn:hover {
-      background: #5e54d6;
-      transform: scale(1.1);
-    }
+    @media (max-width: 768px) {
+      .key-features {
+        padding: 3rem 1rem;
+      }
 
-    a.download-btn {
-      text-decoration: none;
-      background-color: #6c5ce7;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 5px;
-      display: inline-block;
-      transition: background 0.3s, transform 0.3s ease;
-    }
+      .feature-card {
+        padding: 1.5rem;
+      }
 
-    a.download-btn:hover {
-      background-color: #5e54d6;
-      transform: scale(1.05);
+      .feature-icon {
+        width: 60px;
+        height: 60px;
+      }
+
+      .feature-icon i {
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
 <body>
 
-<!-- Navigation with logo -->
+<!-- Navigation -->
 <nav>
   <div class="logo-container">
     <img src="logo.png" alt="Spendomate Logo" class="logo">
     <div style="font-size: 20px; font-weight: 600;">Spendomate</div>
   </div>
-  <div>
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+  <div class="nav-links">
     <a href="#how">Guide</a>
     <a href="#userguide">User Guide</a>
+    <a href="#features">Features</a>
     <a href="#feedback">Feedback</a>
-    <a href="#contact">Mail Us</a>
+    <a href="#contact">Contact</a>
     <a href="#faq">FAQ</a>
   </div>
 </nav>
 
 <header>
   <h1>Welcome to Spendomate</h1>
-  <p>Your secure, smart expense manager</p>
-  <button onclick="window.location.href='#how'">Get Started</button>
+  <p>Your secure, smart expense manager for a better financial future</p>
+  <div class="cta-buttons">
+    <button class="btn" onclick="window.location.href='#download'">
+      <i class="fab fa-android"></i> Download Our App
+    </button>
+    <button class="btn btn-secondary" onclick="window.location.href='#features'">
+      <i class="fas fa-star"></i> Features
+    </button>
+  </div>
 </header>
 
+<!-- Key Features Section -->
+<section class="key-features">
+  <h2>Key Features</h2>
+  <div class="card-grid">
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-chart-line"></i>
+      </div>
+      <h3>Smart Analytics</h3>
+      <p>Advanced spending analytics with trend visualization and predictive insights to help you make better financial decisions.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-shield-alt"></i>
+      </div>
+      <h3>Enhanced Security</h3>
+      <p>Multi-layered security with smart PIN validation, security questions, and brute force protection to keep your data safe.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-mobile-alt"></i>
+      </div>
+      <h3>Offline First</h3>
+      <p>Work seamlessly without internet connection. All data is stored locally with automatic sync when online.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-file-export"></i>
+      </div>
+      <h3>Smart Export</h3>
+      <p>Export your expense data in multiple formats with customizable date ranges and category filters.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-tags"></i>
+      </div>
+      <h3>Custom Categories</h3>
+      <p>Create and manage custom expense categories with color coding and budget allocation features.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-bell"></i>
+      </div>
+      <h3>Smart Reminders</h3>
+      <p>Get intelligent reminders for recurring expenses and budget alerts based on your spending patterns.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Download Section -->
+<section id="download" class="download-section">
+  <div class="download-container">
+    <h2 style="font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 1rem; color: white;">Download Spendomate</h2>
+    <p class="download-description" style="font-size: clamp(1rem, 2.5vw, 1.4rem); font-weight: 500; color: white;">Get the app on your Android device and start managing your expenses today!</p>
+    
+    <div class="download-card" style="background: rgba(255, 255, 255, 0.15); margin: 40px auto; max-width: min(600px, 90%);">
+      <img src="logo.png" alt="Spendomate Logo" class="app-logo" style="width: clamp(60px, 15vw, 100px); height: clamp(60px, 15vw, 100px);">
+      <div class="app-info" style="text-align: center;">
+        <h3 style="font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; margin-bottom: 10px; color: white;">Spendomate</h3>
+        <p style="font-size: clamp(1rem, 2vw, 1.2rem); margin-bottom: 10px; color: white;">Your Budget Buddy</p>
+        <div class="version" style="font-size: clamp(0.9rem, 1.5vw, 1rem); opacity: 0.9; color: white;">Version 1.0.0</div>
+      </div>
+      <a href="spendomate.apk" class="download-btn" download style="font-size: clamp(1rem, 2vw, 1.2rem); padding: clamp(10px, 2vw, 15px) clamp(20px, 3vw, 30px);">
+        <i class="fab fa-android" style="font-size: clamp(1.2rem, 2.5vw, 1.5rem);"></i>
+        Download APK
+      </a>
+    </div>
+
+    <div class="get-started-section" style="margin-top: 3rem; text-align: center;">
+      <h3 style="color: white; font-size: clamp(1.4rem, 3vw, 1.8rem); margin-bottom: 1.5rem;">Ready to Get Started?</h3>
+      <p style="color: white; font-size: clamp(1rem, 2vw, 1.2rem); margin-bottom: 2rem; opacity: 0.9;">
+        Follow our simple guide to set up your account and start managing your expenses
+      </p>
+      <button class="btn" onclick="window.location.href='#how'" style="background: white; color: var(--primary-color);">
+        <i class="fas fa-rocket"></i> Get Started Guide
+      </button>
+    </div>
+  </div>
+</section>
+
 <section id="how">
-  <h2>📘 How to Use Spendomate</h2>
-  <div class="card">1. Set a 4-digit secure PIN or use your fingerprint to log in.</div>
-  <div class="card">2. Add your income and record all expenses with categories.</div>
-  <div class="card">3. View detailed reports and analyze your spending.</div>
-  <div class="card">4. Use the reset option if you forget your PIN. All local data will be cleared.</div>
+  <h2>📘 Getting Started with Spendomate</h2>
+  <div class="card-grid">
+    <div class="card">
+      <h3><i class="fas fa-user-shield"></i> Initial Setup</h3>
+      <p>Create your secure account with a strong PIN . Your data security is our top priority.</p>
+    </div>
+    <div class="card">
+      <h3><i class="fas fa-plus-circle"></i> Add Expenses</h3>
+      <p>Quickly record expenses with categories, notes, and optional receipt photos. Our intuitive interface makes expense tracking effortless.</p>
+    </div>
+    <div class="card">
+      <h3><i class="fas fa-chart-pie"></i> Track Spending</h3>
+      <p>Monitor your spending patterns with visual charts and detailed reports. Identify areas where you can save more.</p>
+    </div>
+    <div class="card">
+      <h3><i class="fas fa-bell"></i> Smart Reminders</h3>
+      <p>Set up custom reminders for bill payments and budget alerts to stay on top of your finances.</p>
+    </div>
+    <div class="card">
+      <h3><i class="fas fa-file-export"></i> Export Reports</h3>
+      <p>Generate and export detailed financial reports in PDF format for your records or sharing with financial advisors.</p>
+    </div>
+    <div class="card">
+      <h3><i class="fas fa-sync"></i> Regular Backups</h3>
+      <p>Your data is automatically backed up locally. Never worry about losing your financial information.</p>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <h2>Enhanced Security Features</h2>
+  <div class="card-grid">
+    <div class="card">
+      <h3><i class="fas fa-lock"></i> Advanced PIN Protection</h3>
+      <p>Secure your data with a strong PIN system featuring:</p>
+      <ul>
+        <li>Smart PIN validation preventing common patterns</li>
+        <li>Protection against sequential numbers</li>
+        <li>Blocking of repeated digits</li>
+        <li>Case-sensitive security questions</li>
+      </ul>
+    </div>
+    
+    <div class="card">
+      <h3><i class="fas fa-shield-alt"></i> Custom Security Questions</h3>
+      <p>Choose between default questions or create your own custom security question for PIN recovery. Features include:</p>
+      <ul>
+        <li>Flexible question selection</li>
+        <li>Custom question creation</li>
+        <li>Case-sensitive answers</li>
+        <li>Secure answer storage</li>
+      </ul>
+    </div>
+    
+    <div class="card">
+      <h3><i class="fas fa-user-shield"></i> Account Recovery</h3>
+      <p>Robust account recovery system with:</p>
+      <ul>
+        <li>Multiple security question attempts</li>
+        <li>Temporary lockout after failed attempts</li>
+        <li>Secure PIN reset process</li>
+        <li>End-to-end encryption</li>
+      </ul>
+    </div>
+  </div>
 </section>
 
 <section id="userguide">
-  <h2>📄 User Guide (PDF)</h2>
+  <h2>📄 User Guide</h2>
   <div class="card">
-    <p>You can view or download the full user guide below:</p>
-    <iframe src="SPENDOMATE USER GUIDE.pdf">Your browser does not support embedded PDFs.</iframe>
-    <p style="margin-top: 10px;">
-      <a href="user_guide.pdf" download class="download-btn">⬇️ Download PDF</a>
-    </p>
+    <div class="guide-steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h3>Download & Install</h3>
+          <p>Download the APK from our official website. Enable "Install from Unknown Sources" in your device settings and follow the installation prompts.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h3>Account Setup</h3>
+          <p>Create your secure account with a strong PIN. Set up your security question for PIN recovery.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h3>Adding Expenses</h3>
+          <p>Use the + button to add expenses. Select categories, add notes, and optionally attach receipt photos. Our smart interface makes expense tracking effortless.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <h3>Managing Expenses</h3>
+          <p>Use the search feature to find transactions, create custom categories, and set up budget alerts. Export reports in PDF format when needed.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-content">
+          <h3>Data Security</h3>
+          <p>Your data is stored locally with encryption. Regular backups ensure your information is safe. Use security pin login for quick access.</p>
+        </div>
+      </div>
+    </div>
+    <div class="guide-download" style="margin-top: 2rem; text-align: center;">
+      <p style="margin-bottom: 1rem;">Download our comprehensive user guide for detailed instructions:</p>
+      <a href="SPENDOMATE USER GUIDE.pdf" download class="btn" style="display: inline-flex; align-items: center; gap: 10px;">
+        <i class="fas fa-download"></i> Download PDF Guide
+      </a>
+    </div>
   </div>
 </section>
 
 <section id="feedback">
   <h2>💬 Share Your Feedback</h2>
-  <p>Let us know what you think!</p>
-  <iframe src="https://forms.gle/8DBPuFUd29yoA9dSA">Loading…</iframe>
-</section>
-
-<section id="contact">
-  <h2>📧 Mail Us</h2>
   <div class="card">
-    <p>Email: <a href="mailto:spendomateonline@gmail.com">spendomateonline@gmail.com</a></p>
+    <p>We value your input! Help us improve Spendomate by sharing your thoughts and suggestions.</p>
+    <iframe src="https://forms.gle/8DBPuFUd29yoA9dSA" style="width: 100%; height: 600px; border: none; border-radius: 10px;"></iframe>
   </div>
 </section>
 
-<section id="faq" class="faq">
-  <h2>❓ FAQ</h2>
-  <details>
-    <summary>What if I forget my PIN?</summary>
-    <p>Use the reset option on the login screen. All data will be cleared.</p>
-  </details>
-  <details>
-    <summary>Is my data safe?</summary>
-    <p>Yes! Your data is stored locally on your device and protected with encryption.</p>
-  </details>
-  <details>
-    <summary>Can I use biometric login?</summary>
-    <p>Yes, if your device supports fingerprint or face unlock.</p>
-  </details>
+<section id="contact">
+  <h2>📧 Contact Us</h2>
+  <div class="card" style="text-align: center; padding: 3rem;">
+    <h3 style="margin-bottom: 1.5rem; color: var(--primary-color);">Get in Touch</h3>
+    <p style="margin-bottom: 2rem; font-size: 1.1rem;">Have questions or feedback? We'd love to hear from you!</p>
+    <a href="mailto:spendomateonline@gmail.com" class="btn" style="display: inline-flex; align-items: center; gap: 0.8rem; font-size: 1.1rem; padding: 1rem 2rem;">
+      <i class="fas fa-envelope"></i>
+      Send us a Message
+    </a>
+  </div>
+</section>
+
+<section id="faq">
+  <h2>❓ Frequently Asked Questions</h2>
+  <div class="faq-container">
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span>How do I set up my PIN and what are the security requirements?</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        <p>When you first open the app, you'll be prompted to set up a 4-digit PIN. The app includes advanced security validation to ensure your PIN is secure:</p>
+        <ul>
+          <li>No repeated numbers (e.g., 1111)</li>
+          <li>No sequential numbers (e.g., 1234)</li>
+          <li>Minimum length of 4 digits</li>
+        </ul>
+        <p>You'll also have the option to set up a security question for PIN recovery.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span>What happens if I forget my PIN? How does the recovery process work?</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        <p>If you forget your PIN, you can use your security question to reset it. Here's how the process works:</p>
+        <ul>
+          <li>Tap "Forgot PIN?" on the login screen</li>
+          <li>Answer your security question correctly</li>
+          <li>Set up a new secure PIN</li>
+        </ul>
+        <p>Note: If you haven't set up a security question, you'll need to reset the app, which will clear all local data.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span>How is my data protected and what security measures are in place?</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        <p>Your data is protected with multiple layers of security:</p>
+        <ul>
+          <li>SHA-256 encryption for all stored data</li>
+          <li>Local storage only - no data is sent to external servers</li>
+          <li>Secure PIN validation and security question authentication</li>
+          <li>Brute force protection with automatic lockout</li>
+        </ul>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span>Can I use biometric authentication and what devices are supported?</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        <p>Currently the app security runs on security pin authentication:</p>
+        <ul>
+          <li>Minimum 4 digit security pin non-sequential</li>
+          <li>Security question system both custom and default of user choice</li>
+        </ul>
+        <p>The app will soon upgraded to allow biometric authentication for better approach.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span>What happens if I enter the wrong PIN or security answer too many times?</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        <p>To protect your data from unauthorized access, the app includes a security lockout feature:</p>
+        <ul>
+          <li>After 5 incorrect attempts, the app will be locked</li>
+          <li>The lockout period is 1 hour</li>
+          <li>This applies to both PIN and security question attempts</li>
+        </ul>
+        <p>This feature helps prevent brute force attacks on your data.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span>How do I set up and manage my security question?</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        <p>You'll be prompted to set up a security question when you first create your PIN. Here are some tips:</p>
+        <ul>
+          <li>Choose a question that only you know the answer to</li>
+          <li>Make sure the answer is something you can remember</li>
+          <li>Answers are case-sensitive</li>
+          <li>You can't change the question after setup</li>
+        </ul>
+        <p>Remember: Your security question is crucial for PIN recovery.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <footer>
-  &copy; 2025 Spendomate. All rights reserved.
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>About Spendomate</h3>
+      <p>Your secure, smart expense manager for a better financial future.</p>
+      <div class="social-links">
+        <a href="mailto:spendomateonline@gmail.com" title="Contact us via email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
+    </div>
+    <div class="footer-section">
+      <h3>Quick Links</h3>
+      <a href="#how">Guide</a><br>
+      <a href="#features">Features</a><br>
+      <a href="#feedback">Feedback</a><br>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-section">
+      <h3>Contact Info</h3>
+      <p><i class="fas fa-envelope"></i> spendomateonline@gmail.com</p>
+    </div>
+  </div>
+  <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #444;">
+    &copy; 2025 Spendomate. All rights reserved.
+  </div>
 </footer>
 
 <!-- Dark mode toggle -->
-<button class="toggle-btn" onclick="toggleDarkMode()">🌓</button>
+<button class="toggle-btn" onclick="toggleDarkMode()">
+  <i class="fas fa-moon"></i>
+</button>
+
+<!-- Scroll to top button -->
+<div class="scroll-top" onclick="scrollToTop()">
+  <i class="fas fa-arrow-up"></i>
+</div>
 
 <script>
+  // Toggle mobile menu
+  function toggleMenu() {
+    const navLinks = document.querySelector('.nav-links');
+    const hamburger = document.querySelector('.hamburger');
+    navLinks.classList.toggle('active');
+    hamburger.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+  }
+
+  // Toggle FAQ items
+  function toggleFAQ(element) {
+    const answer = element.nextElementSibling;
+    const icon = element.querySelector('i');
+    const allAnswers = document.querySelectorAll('.faq-answer');
+    const allIcons = document.querySelectorAll('.faq-question i');
+    
+    // Close all other answers
+    allAnswers.forEach(a => {
+      if (a !== answer) {
+        a.style.maxHeight = '0';
+        a.classList.remove('active');
+        a.style.opacity = '0';
+      }
+    });
+    
+    allIcons.forEach(i => {
+      if (i !== icon) {
+        i.style.transform = 'rotate(0deg)';
+      }
+    });
+    
+    // Toggle current answer
+    if (answer.classList.contains('active')) {
+      answer.style.maxHeight = '0';
+      answer.classList.remove('active');
+      answer.style.opacity = '0';
+      icon.style.transform = 'rotate(0deg)';
+    } else {
+      answer.classList.add('active');
+      answer.style.maxHeight = 'none';
+      answer.style.opacity = '1';
+      icon.style.transform = 'rotate(180deg)';
+      
+      // Scroll the answer into view if it's not fully visible
+      answer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+
+  // Dark mode toggle
   function toggleDarkMode() {
     document.body.classList.toggle("dark-mode");
+    const icon = document.querySelector('.toggle-btn i');
+    if (document.body.classList.contains("dark-mode")) {
+      icon.classList.remove('fa-moon');
+      icon.classList.add('fa-sun');
+    } else {
+      icon.classList.remove('fa-sun');
+      icon.classList.add('fa-moon');
+    }
   }
+
+  // Scroll to top functionality
+  window.onscroll = function() {
+    const scrollTop = document.querySelector('.scroll-top');
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      scrollTop.classList.add('visible');
+    } else {
+      scrollTop.classList.remove('visible');
+    }
+  };
+
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+
+  // Smooth scroll for navigation links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+
+  // Form submission
+  async function sendMessage() {
+    // Show loading state
+    const submitBtn = document.querySelector('.contact-form .btn');
+    const originalBtnText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    submitBtn.disabled = true;
+
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+    
+    if (!name || !email || !message) {
+      alert('Please fill in all fields.');
+      submitBtn.innerHTML = originalBtnText;
+      submitBtn.disabled = false;
+      return;
+    }
+
+    try {
+      const templateParams = {
+        name: name,
+        email: email,
+        message: message,
+        time: new Date().toLocaleString()
+      };
+
+      console.log('Sending with params:', templateParams); // Debug log
+
+      const response = await emailjs.send(
+        'service_fd57fa5',
+        'template_fi2do9f',
+        templateParams,
+        'IdLYVNvpE4GFBc7Hb' // Adding public key here as well
+      );
+
+      console.log('Response:', response); // Debug log
+
+      if (response.status === 200) {
+        console.log('SUCCESS!', response.status, response.text);
+        showResponseCard(true);
+        // Clear form
+        document.getElementById('name').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('message').value = '';
+      } else {
+        throw new Error('Failed to send message');
+      }
+    } catch (error) {
+      console.error('FAILED...', error);
+      showResponseCard(false);
+    } finally {
+      // Reset button state
+      submitBtn.innerHTML = originalBtnText;
+      submitBtn.disabled = false;
+    }
+  }
+
+  function showResponseCard(success) {
+    // Remove existing response card and overlay if any
+    const existingCard = document.querySelector('.response-card');
+    const existingOverlay = document.querySelector('.overlay');
+    if (existingCard) existingCard.remove();
+    if (existingOverlay) existingOverlay.remove();
+
+    // Create overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'overlay';
+    document.body.appendChild(overlay);
+
+    // Create response card
+    const responseCard = document.createElement('div');
+    responseCard.className = 'response-card';
+    
+    if (success) {
+      responseCard.innerHTML = `
+        <i class="fas fa-check-circle" style="color: #4CAF50;"></i>
+        <h3>Message Sent!</h3>
+        <p>Thank you for contacting us. We'll get back to you soon.</p>
+        <button class="btn" onclick="closeResponse()">Close</button>
+      `;
+    } else {
+      responseCard.innerHTML = `
+        <i class="fas fa-exclamation-circle" style="color: #f44336;"></i>
+        <h3>Oops! Something went wrong</h3>
+        <p>Please try again or contact us directly at:<br>
+        <a href="mailto:spendomateonline@gmail.com" style="color: var(--primary-color); text-decoration: underline;">spendomateonline@gmail.com</a></p>
+        <button class="btn" onclick="closeResponse()">Close</button>
+      `;
+    }
+    
+    document.body.appendChild(responseCard);
+  }
+
+  function closeResponse() {
+    const overlay = document.querySelector('.overlay');
+    const responseCard = document.querySelector('.response-card');
+    
+    if (overlay) {
+      overlay.style.opacity = '0';
+      setTimeout(() => overlay.remove(), 300);
+    }
+    
+    if (responseCard) {
+      responseCard.style.opacity = '0';
+      responseCard.style.transform = 'translate(-50%, -60%)';
+      setTimeout(() => responseCard.remove(), 300);
+    }
+  }
+
+  // Update scroll behavior for mobile
+  window.addEventListener('scroll', function() {
+    const nav = document.querySelector('nav');
+    if (window.scrollY > 50) {
+      nav.style.height = '60px';
+    } else {
+      nav.style.height = 'var(--header-height)';
+    }
+  });
+
+  // Initialize EmailJS
+  (function() {
+    emailjs.init("IdLYVNvpE4GFBc7Hb");
+  })();
 </script>
+
+<!-- Add EmailJS SDK before closing body tag -->
+<script type="text/javascript" src="https://cdn.emailjs.com/sdk/3.11.0/email.min.js"></script>
 
 </body>
 </html>
